@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title>FinCity · Детская академия финансов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -289,6 +289,7 @@
     padding: 16px 20px;
     margin: 8px 0;
     font-weight: 500;
+    width: 100%;
   }
 
   .answer:hover:not(:disabled) {
@@ -311,20 +312,22 @@
 
   .bank-actions, .market-input-group {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     margin: 18px 0;
     flex-wrap: wrap;
   }
 
   .bank-actions input, .market-input-group input {
-    flex: 2;
-    min-width: 600px;
+    flex: 2 1 160px;       
+    min-width: 0;            
     margin: 0;
+    width: auto;           
   }
 
   .bank-actions button, .market-input-group button {
-    flex: 1;
+    flex: 1 1 auto;
     margin: 0;
+    white-space: nowrap;
   }
 
   .withdraw-button {
@@ -367,6 +370,7 @@
     padding: 18px 22px;
     border-radius: 60px;
     margin-bottom: 24px;
+    gap: 12px;
   }
 
   .profile-name {
@@ -391,9 +395,63 @@
 
   .emoji-big { font-size: 2rem; filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.1)); }
 
-  @media (max-width: 500px) {
-    .card { padding: 22px 18px; }
-    .profile-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+  /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+  @media (max-width: 600px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .badge {
+      align-self: flex-start;
+    }
+    .logo {
+      font-size: 1.4rem;
+    }
+    .container {
+      padding: 0 12px;
+      margin: 16px auto;
+    }
+    .card {
+      padding: 20px 18px;
+    }
+    .profile-row {
+      flex-direction: column;
+      align-items: stretch;
+      border-radius: 40px;
+    }
+    .profile-name, .level-badge {
+      width: fit-content;
+    }
+    h3 {
+      font-size: 1.3rem;
+    }
+    .bank-actions, .market-input-group {
+      flex-direction: column;
+    }
+    .bank-actions button, .market-input-group button {
+      width: 100%;
+    }
+    .bank-actions input, .market-input-group input {
+      width: 100%;
+      min-width: 0;
+    }
+    .price-ticker {
+      font-size: 1rem;
+      padding: 8px 14px;
+    }
+    .answer {
+      padding: 14px 16px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .logo span {
+      font-size: 1.2rem;
+    }
+    .badge {
+      font-size: 0.8rem;
+    }
   }
 </style>
 </head>
@@ -402,10 +460,10 @@
 <header>
   <div class="logo">
     <i class="fas fa-landmark"></i> 
-    <span>FinCity<span style="font-weight: 400; color: #9bb9e0;">·Pro</span></span>
+    <span>FinCity·Детская академия</span>
   </div>
   <div class="badge">
-    <i class="fas fa-gem"></i> Детская академия финансов
+    <i class="fas fa-gem"></i> Юный финансист
   </div>
 </header>
 
@@ -437,7 +495,7 @@
         <div class="card">
           <div style="text-align: center; margin-bottom: 20px;">
             <span class="emoji-big">🚀</span>
-            <h2 style="color: var(--primary);">Добро пожаловать в FinCity Pro</h2>
+            <h2 style="color: var(--primary);">Добро пожаловать в FinCity</h2>
             <p style="color: var(--text-secondary);">Академия юных финансистов</p>
           </div>
           <div class="input-group">
@@ -624,12 +682,11 @@
           <h3><i class="fas fa-university"></i> Банк «Копилка»</h3>
           <p style="font-size: 2rem; font-weight: 700;">${state.savings.toFixed(2)} ₽ <span style="font-size:1rem;">накоплено</span></p>
           <div class="bank-actions">
-            <div style="flex:2;"><i class="fas fa-plus-circle"></i></div>
-            <input id="depositAmount" type="number" placeholder="Сумма" min="0.01" step="0.01">
+            <input id="depositAmount" type="number" placeholder="Сумма пополнения" min="0.01" step="0.01">
             <button class="primary" onclick="deposit()"><i class="fas fa-arrow-up"></i> Пополнить</button>
           </div>    
           <div class="bank-actions">
-            <input id="withdrawAmount" type="number" placeholder="Сумма" min="0.01" step="0.01">
+            <input id="withdrawAmount" type="number" placeholder="Сумма вывода" min="0.01" step="0.01">
             <button class="withdraw-button" onclick="withdraw()"><i class="fas fa-arrow-down"></i> Вывести</button>
           </div>
           <div class="progressbar"><div id="bankProgress" class="progress" style="width:0%"></div></div>
